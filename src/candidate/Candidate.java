@@ -26,4 +26,5 @@ class Candidate {
     public String getFullName() {
         return firstName + " " + lastName;
     }
+
 }
