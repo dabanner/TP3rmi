@@ -2,9 +2,9 @@ package candidate;
 
 class Candidate {
     public static int nextId = 1;
-    private Integer id;
-    private String firstName;
-    private String lastName;
+    private final Integer id;
+    private final String firstName;
+    private final String lastName;
 
     public Candidate(String firstName, String lastName) {
         this.id = nextId++;
