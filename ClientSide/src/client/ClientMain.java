@@ -1,7 +1,10 @@
+package client;
+
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.List;
 import java.util.Scanner;
+import client.candidate.Candidate;
 
 public class ClientMain {
     public static void main(String[] args) {
@@ -12,10 +15,11 @@ public class ClientMain {
             // Lookup the remote ElectionService object from the registry
             ElectionService electionService = (ElectionService) registry.lookup("ElectionService");
 
+            PublicStub publicStub = new PublicStub(electionService);
             // Query the list of candidates and print their names and pitches
-            List<Candidate> candidates = electionService.getCandidates();
+            List<Candidate> candidates = publicStub.getCandidates();
             for (Candidate candidate : candidates) {
-                System.out.println("Candidate: " + candidate.getFirstName() + " " + candidate.getLastName());
+                System.out.println("Candidate: " + candidate.getFullName());
                 if (candidate.getPitch() != null) {
                     System.out.println("Pitch: " + candidate.getPitch());
                 }
@@ -29,13 +33,14 @@ public class ClientMain {
             System.out.print("Enter your password: ");
             String password = scanner.next();
 
-            boolean isAllowedToVote = electionService.isAllowedToVote(studentNumber, password);
+            int OTP = publicStub.getVoteMaterial(studentNumber, password);
 
-            if (isAllowedToVote) {
+            if (OTP!= 0) {
 
-                System.out.print("Enter the rank of the candidate you want to vote for: ");
-                int candidateRank = scanner.nextInt();
-                boolean voteResult = electionService.vote(studentNumber, candidateRank);
+                StubVotant stubVotant = new StubVotant(electionService);
+                System.out.print("Enter your vote: ");
+                String candidateRank = scanner.next();
+                boolean voteResult = stubVotant.Vote(studentNumber, OTP, candidates);
 
                 if (voteResult) {
                     System.out.println("Vote successfully cast!");
@@ -48,6 +53,7 @@ public class ClientMain {
 
             // Close the scanner and handle exceptions as needed
             scanner.close();
+            publicStub.getResults();
 
         } catch (Exception e) {
             e.printStackTrace();
