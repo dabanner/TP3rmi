@@ -1,13 +1,19 @@
 package candidate;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.HashSet;
 
-public class CandidatesList extends HashSet<Candidate> {
+public class CandidatesList extends HashSet<Candidate> implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+
     public CandidatesList() {
         super();
     }
 
-    public static Candidate getCandidateById(int id) {
+    public Candidate getCandidateById(int id) {
         for (Candidate candidate : this) {
             if (candidate.getId() == id) {
                 return candidate;

@@ -9,13 +9,13 @@ package user;
 public class User {
     private Integer studentNumber;
     private String password;
-
-    public boolean hasVoted = false;
+    private boolean hasVoted;
 
     public User(Integer studentNumber, String password) {
         this.studentNumber = studentNumber;
         this.password = password;
-        System.out.println("[Creation] " + this);
+        this.hasVoted = false;
+        System.out.println("[NEW] " + this);
     }
 
     public Integer getStudentNumber() {
@@ -24,6 +24,14 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public boolean hasVoted() {
+        return hasVoted;
+    }
+
+    public void setHasVoted(boolean hasVoted) {
+        this.hasVoted = hasVoted;
     }
 
     @Override

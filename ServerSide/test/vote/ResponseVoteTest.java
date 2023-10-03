@@ -12,9 +12,13 @@ class ResponseVoteTest {
 
     @BeforeEach
     public void setUp() {
-        voteMaterial = new VoteMaterial();
-        otp = new AuthenticationToken();
-        responseVote = new ResponseVote(voteMaterial, otp);
+        try {
+            otp = new AuthenticationToken();
+            voteMaterial = new VoteMaterial(null);
+            responseVote = new ResponseVote(voteMaterial, otp);
+        } catch (Exception e) {
+            System.err.println("[SERVER] Error: " + e.getMessage());
+        }
     }
 
     @Test

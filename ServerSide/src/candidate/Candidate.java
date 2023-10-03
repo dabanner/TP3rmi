@@ -1,9 +1,14 @@
 package candidate;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * A candidate is a person who is running for an elected position.
  */
-public class Candidate {
+public class Candidate implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     public static int nextId = 1;
     private final Integer id;
     private final String firstName;
@@ -40,7 +45,7 @@ public class Candidate {
     }
 
     public void addVote(int number) {
-        votes+=number;
+        votes += number;
     }
 
     @Override

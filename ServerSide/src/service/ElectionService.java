@@ -2,6 +2,7 @@ package service;
 
 
 import candidate.CandidatesList;
+import user.UsersList;
 import vote.ResponseVote;
 
 import java.rmi.Remote;
@@ -11,6 +12,8 @@ public interface ElectionService extends Remote {
     void getElectionResults() throws RemoteException;
 
     CandidatesList getCandidatesList() throws RemoteException;
+
+    UsersList getUsersList() throws RemoteException;
 
     ResponseVote getVoteMaterial(int studentNumber, String password) throws RemoteException, BadCredentialsException;
 }

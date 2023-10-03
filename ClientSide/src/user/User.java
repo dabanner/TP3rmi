@@ -13,7 +13,7 @@ public class User {
     public User(Integer studentNumber, String password) {
         this.studentNumber = studentNumber;
         this.password = password;
-        System.out.println("[Creation] " + this);
+        System.out.println("[NEW] " + this);
     }
 
     public Integer getStudentNumber() {

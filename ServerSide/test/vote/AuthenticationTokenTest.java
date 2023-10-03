@@ -3,6 +3,7 @@ package vote;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.rmi.RemoteException;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
