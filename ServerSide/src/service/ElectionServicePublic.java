@@ -32,8 +32,8 @@ public class ElectionServicePublic extends UnicastRemoteObject implements Electi
     }
 
     @Override
-    public void getElectionResults() throws RemoteException {
-        System.out.println("Results are not available yet.");
+    public String getElectionResults() throws RemoteException {
+        return candidateList.toString();
     }
 
     @Override

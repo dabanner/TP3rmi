@@ -9,7 +9,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface ElectionService extends Remote {
-    void getElectionResults() throws RemoteException;
+    String getElectionResults() throws RemoteException;
 
     CandidatesList getCandidatesList() throws RemoteException;
 

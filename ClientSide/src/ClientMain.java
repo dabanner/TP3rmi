@@ -82,7 +82,7 @@ public class ClientMain {
             scanner.close();
 
             // Print the election results
-            electionService.getElectionResults();
+            System.out.println(electionService.getElectionResults());
 
         } catch (Exception e) {
             System.err.println("[Client] Error found : " + e.getMessage());
