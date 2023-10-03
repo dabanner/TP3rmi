@@ -40,13 +40,16 @@ public class ElectionServicePublic implements ElectionService {
     }
 
     @Override
-    public ResponseVote getVoteMaterial(int studentNumber) throws RemoteException, BadCredentialsException {
+    public ResponseVote getVoteMaterial(int studentNumber, String password) throws RemoteException, BadCredentialsException {
         if (!usersList.containsUser(studentNumber)) {
             throw new BadCredentialsException("Student number " + studentNumber + " is not registered !");
         }
         // Check password of the student with the studentNumber
 
         User user = usersList.getUserByStudentNumber(studentNumber);
+        if (!user.getPassword().equals(password)) {
+            throw new BadCredentialsException("Wrong password for student number " + studentNumber + " !");
+        }
 
         // If OK return a VoteMaterial object with OTP
         if (false) {

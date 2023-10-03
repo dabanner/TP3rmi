@@ -30,8 +30,10 @@ public class ClientMain {
             // Authenticate the user
             System.out.print("Enter your student number: ");
             int studentNumber = scanner.nextInt();
+            System.out.print("Enter your password: ");
+            String supersecretpassword = scanner.next();
 
-            ResponseVote response = electionService.getVoteMaterial(studentNumber);
+            ResponseVote response = electionService.getVoteMaterial(studentNumber, supersecretpassword);
             OTPService otp = response.getOTP();
             VoteService voteService = response.getVoteMaterial();
 

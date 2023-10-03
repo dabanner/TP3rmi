@@ -14,7 +14,7 @@ public interface ElectionService extends Remote {
 
     CandidatesList getCandidatesList() throws RemoteException;
 
-    ResponseVote getVoteMaterial(int studentNumber) throws RemoteException, BadCredentialsException;
+    ResponseVote getVoteMaterial(int studentNumber, String password) throws RemoteException, BadCredentialsException;
 
     boolean vote(int studentNumber, OTPService otp, Map<Integer, Integer> candidates)
             throws HasAlreadyVotedException, RemoteException;
