@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CandidateTest {
-    private final Candidate candidate = new Candidate("John", "Doe");
+    private final static Candidate candidate = new Candidate("John", "Doe");
 
     @Test
     void testGetId() {

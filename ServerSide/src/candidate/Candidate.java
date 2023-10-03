@@ -25,6 +25,11 @@ public class Candidate {
     }
 
     @Override
+    public String toString() {
+        return "Candidate " + String.format("%04d", id) + ": " + getFullName();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

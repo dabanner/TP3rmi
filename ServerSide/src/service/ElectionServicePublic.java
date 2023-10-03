@@ -42,7 +42,7 @@ public class ElectionServicePublic implements ElectionService {
     @Override
     public ResponseVote getVoteMaterial(int studentNumber) throws RemoteException, BadCredentialsException {
         if (!usersList.containsUser(studentNumber)) {
-            throw new BadCredentialsException("Student number not found.");
+            throw new BadCredentialsException("Student number " + studentNumber + " is not registered !");
         }
         // Check password of the student with the studentNumber
 

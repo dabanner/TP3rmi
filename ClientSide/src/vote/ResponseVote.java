@@ -1,15 +1,15 @@
 package vote;
 
 public class ResponseVote {
-    private final VoteMaterial voteMaterial;
+    private final VoteService voteMaterial;
     private final OTPService otp;
 
-    public ResponseVote(VoteMaterial voteMaterial, OTPService otp) {
+    public ResponseVote(VoteService voteMaterial, OTPService otp) {
         this.voteMaterial = voteMaterial;
         this.otp = otp;
     }
 
-    public VoteMaterial getVoteMaterial() {
+    public VoteService getVoteMaterial() {
         return voteMaterial;
     }
 

@@ -1,15 +1,14 @@
-package service;
+package vote;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import vote.AuthenticationToken;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AuthenticationTokenTest {
-    private AuthenticationToken authenticationToken;
+    private OTPService authenticationToken;
 
     @BeforeEach
     public void setUp() {
@@ -30,7 +29,7 @@ class AuthenticationTokenTest {
 
     @Test
     void testGeneratedPasswordIsRandom() {
-        AuthenticationToken anotherAuthenticationToken = new AuthenticationToken();
+        OTPService anotherAuthenticationToken = new AuthenticationToken();
         assertNotEquals(authenticationToken.getOneTimePassword(), anotherAuthenticationToken.getOneTimePassword());
     }
 
@@ -49,7 +48,7 @@ class AuthenticationTokenTest {
 
     @Test
     void testIsOTPValid() {
-        AuthenticationToken authenticationToken = new AuthenticationToken();
+        OTPService authenticationToken = new AuthenticationToken();
         assertTrue(authenticationToken.isOTPValid());
     }
 }

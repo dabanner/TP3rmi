@@ -1,8 +1,9 @@
 import candidate.CandidatesList;
 import service.ElectionService;
-import vote.AuthenticationToken;
+import vote.OTPService;
 import vote.ResponseVote;
-import vote.VoteMaterial;
+import vote.VoteService;
+
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -28,11 +29,11 @@ public class ClientMain {
             int studentNumber = scanner.nextInt();
 
             ResponseVote response = electionService.getVoteMaterial(studentNumber);
-            AuthenticationToken otp = response.getOTP();
+            OTPService otp = response.getOTP();
 
             if (response.getOTP().isOTPValid()) {
 
-                VoteMaterial stubVotant = response.getVoteMaterial();
+                VoteService stubVotant = response.getVoteMaterial();
                 System.out.print("Enter your vote: ");
                 String candidateRank = scanner.next();
                 boolean voteResult = stubVotant.vote(studentNumber, otp, candidates);
@@ -53,7 +54,7 @@ public class ClientMain {
             electionService.getElectionResults();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("[Client] Error with the server");
         }
     }
 }

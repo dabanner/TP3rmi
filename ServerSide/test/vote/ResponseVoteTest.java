@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ResponseVoteTest {
     private ResponseVote responseVote;
     private VoteMaterial voteMaterial;
-    private AuthenticationToken otp;
+    private OTPService otp;
 
     @BeforeEach
     public void setUp() {
