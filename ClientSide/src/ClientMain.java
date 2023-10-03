@@ -2,6 +2,7 @@ import candidate.CandidatesList;
 import service.ElectionService;
 import vote.OTPService;
 import vote.ResponseVote;
+import vote.VoteMaterial;
 import vote.VoteService;
 
 
@@ -32,6 +33,7 @@ public class ClientMain {
 
             ResponseVote response = electionService.getVoteMaterial(studentNumber);
             OTPService otp = response.getOTP();
+            VoteService voteService = response.getVoteMaterial();
 
             if (response.getOTP().isOTPValid()) {
 
@@ -43,7 +45,7 @@ public class ClientMain {
                     candidatess.put(candidate.getId(), candidateRank);
                 });
 
-                boolean voteResult = electionService.vote(studentNumber, otp, candidatess);
+                boolean voteResult = voteService.vote(studentNumber, otp, candidatess);
 
                 if (voteResult) {
                     System.out.println("Vote successfully cast!");
