@@ -46,6 +46,7 @@ public class ElectionServicePublic implements ElectionService {
         }
         // Check password of the student with the studentNumber
 
+        User user = usersList.getUserByStudentNumber(studentNumber);
 
         // If OK return a VoteMaterial object with OTP
         if (false) {
