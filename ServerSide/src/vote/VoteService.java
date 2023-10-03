@@ -20,6 +20,6 @@ public interface VoteService extends Remote {
      * @throws HasAlreadyVotedException If the voter has already voted
      * @throws RemoteException          If an error occurs during the remote call
      */
-    boolean vote(int studentNumber, OTPService otp, Map<Integer, Integer> rankForCandidates)
+    boolean vote(int studentNumber, OTPService otp, Map<Candidate, Integer> rankForCandidates)
             throws HasAlreadyVotedException, RemoteException;
 }

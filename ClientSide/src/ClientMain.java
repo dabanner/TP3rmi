@@ -1,3 +1,4 @@
+import candidate.Candidate;
 import candidate.CandidatesList;
 import service.ElectionService;
 import vote.OTPService;
@@ -14,6 +15,7 @@ public class ClientMain {
     public static final String ANSI_RESET = "\u001B[0m";
 
     public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_GREEN = "\u001B[32m";
 
     public static void main(String[] args) {
         try {
@@ -56,7 +58,7 @@ public class ClientMain {
 
             if (response.getOTP().isOTPValid()) {
 
-                Map<Integer, Integer> rankForCandidates = new HashMap<>();
+                Map<Candidate, Integer> rankForCandidates = new HashMap<>();
                 candidates.forEach(candidate -> {
                     System.out.println(candidate.toString());
                     int candidateRank;
@@ -64,25 +66,29 @@ public class ClientMain {
                         System.out.print(ANSI_YELLOW + "Enter your vote for candidate " + candidate.getId() + " : " + ANSI_RESET);
                         candidateRank = scanner.nextInt();
                     } while (candidateRank < 1 || candidateRank > 3);
-                    rankForCandidates.put(candidate.getId(), candidateRank);
+                    rankForCandidates.put(candidate, candidateRank);
                 });
 
                 boolean voteResult = voteService.vote(studentNumber, otp, rankForCandidates);
 
                 if (voteResult) {
-                    System.out.println("Vote successfully cast!" + ANSI_RESET);
+                    System.out.println(ANSI_YELLOW + "Vote successfully cast!" + ANSI_RESET);
+
+                    System.out.println(ANSI_YELLOW + "Recap of your vote:" + ANSI_RESET);
+                    rankForCandidates.forEach((candidate, rank) -> System.out.println(ANSI_YELLOW + "- Candidate " + candidate.getId() + " " + candidate.getFullName() + ": " + rank + " votes" + ANSI_RESET));
+
                 } else {
-                    System.out.println("Failed to cast your vote. Please try again.");
+                    System.err.println("Failed to cast your vote. Please try again.");
                 }
             } else {
-                System.out.println("You are not allowed to vote.");
+                System.err.println("You are not allowed to vote.");
             }
 
             // Close the scanner and handle exceptions as needed
             scanner.close();
 
             // Print the election results
-            System.out.println(electionService.getElectionResults());
+            System.out.println(ANSI_GREEN + electionService.getElectionResults() + ANSI_RESET);
 
         } catch (Exception e) {
             System.err.println("[Client] Error found : " + e.getMessage());

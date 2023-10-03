@@ -13,12 +13,13 @@ public class Candidate implements Serializable {
     private final Integer id;
     private final String firstName;
     private final String lastName;
-    private int votes = 0;
+    private int votes;
 
     protected Candidate(String firstName, String lastName) {
         this.id = nextId++;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.votes = 0;
     }
 
     public Integer getId() {
@@ -27,6 +28,14 @@ public class Candidate implements Serializable {
 
     public String getFullName() {
         return firstName + " " + lastName;
+    }
+
+    public void addVote(int number) {
+        votes += number;
+    }
+
+    public int getVotes() {
+        return votes;
     }
 
     @Override
@@ -42,10 +51,6 @@ public class Candidate implements Serializable {
         Candidate candidate = (Candidate) o;
 
         return id.equals(candidate.id);
-    }
-
-    public void addVote(int number) {
-        votes += number;
     }
 
     @Override

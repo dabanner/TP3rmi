@@ -33,7 +33,11 @@ public class ElectionServicePublic extends UnicastRemoteObject implements Electi
 
     @Override
     public String getElectionResults() throws RemoteException {
-        return candidateList.toString();
+        StringBuilder results = new StringBuilder("\n================================\n");
+        results.append("Election results :\n");
+        candidateList.forEach(candidate -> results.append(candidate.toString()).append(" with ").append(candidate.getVotes()).append(" votes\n"));
+        results.append("================================\n");
+        return results.toString();
     }
 
     @Override

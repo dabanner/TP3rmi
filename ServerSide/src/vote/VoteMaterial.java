@@ -22,22 +22,16 @@ public class VoteMaterial extends UnicastRemoteObject implements VoteService, Se
     }
 
     @Override
-    public boolean vote(int studentNumber, OTPService otp, Map<Integer, Integer> candidates) throws HasAlreadyVotedException, RemoteException {
+    public boolean vote(int studentNumber, OTPService otp, Map<Candidate, Integer> candidates) throws HasAlreadyVotedException, RemoteException {
         User user = electionService.getUsersList().getUserByStudentNumber(studentNumber);
-
-        if(user.hasVoted()) {
+        if (!otp.isOTPValid()) {
+            throw new RemoteException("OTP is not valid.");
+        }
+        if (user.hasVoted()) {
             throw new HasAlreadyVotedException("User with student number " + studentNumber + " has already voted.");
         }
-        candidates.forEach((candidateId, candidateVote) -> {
-            Candidate candidate = null;
-            try {
-                candidate = electionService.getCandidatesList().getCandidateById(candidateId);
-            } catch (RemoteException e) {
-                System.err.println("[SERVER] Error while getting candidate by id :" + candidateId);
-            }
-            assert candidate != null;
-            candidate.addVote(candidateVote);
-        });
+        candidates.forEach(Candidate::addVote);
+
         user.setHasVoted(true);
         return true;
     }
