@@ -8,6 +8,7 @@ public class Candidate {
     private final Integer id;
     private final String firstName;
     private final String lastName;
+    private int votes = 0;
 
     protected Candidate(String firstName, String lastName) {
         this.id = nextId++;
@@ -31,6 +32,10 @@ public class Candidate {
         Candidate candidate = (Candidate) o;
 
         return id.equals(candidate.id);
+    }
+
+    public void addVote(int number) {
+        votes+=number;
     }
 
     @Override
