@@ -35,7 +35,6 @@ public class ClientMain {
 
             if (response.getOTP().isOTPValid()) {
 
-                VoteService stubVotant = response.getVoteMaterial();
                 Map<Integer, Integer> candidatess = new HashMap<>();
                 candidates.forEach(candidate -> {
                     System.out.println(candidate.toString());

@@ -5,6 +5,7 @@ import service.HasAlreadyVotedException;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.Map;
 
 public interface VoteService extends Remote {
 
@@ -18,6 +19,5 @@ public interface VoteService extends Remote {
      * @throws HasAlreadyVotedException If the voter has already voted
      * @throws RemoteException          If an error occurs during the remote call
      */
-    boolean vote(int studentNumber, OTPService otp, CandidatesList candidates)
-            throws HasAlreadyVotedException, RemoteException;
+    boolean vote(int studentNumber, OTPService otp, Map<Integer, Integer> candidates) throws HasAlreadyVotedException, RemoteException;
 }

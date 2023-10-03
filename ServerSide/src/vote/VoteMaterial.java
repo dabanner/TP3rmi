@@ -1,9 +1,11 @@
 package vote;
 
+import candidate.Candidate;
 import candidate.CandidatesList;
 import service.HasAlreadyVotedException;
 
 import java.rmi.RemoteException;
+import java.util.Map;
 
 public class VoteMaterial implements VoteService {
     public VoteMaterial() {
@@ -11,7 +13,12 @@ public class VoteMaterial implements VoteService {
     }
 
     @Override
-    public boolean vote(int studentNumber, OTPService otp, CandidatesList candidates) throws HasAlreadyVotedException, RemoteException {
-        return false;
+    public boolean vote(int studentNumber, OTPService otp, Map<Integer, Integer> candidates) throws HasAlreadyVotedException, RemoteException {
+        candidates.forEach((candidateId, candidateVote) -> {
+            Candidate candidate = CandidatesList.getCandidateById(candidateId);
+            assert candidate != null;
+            candidate.addVote(candidateVote);
+        });
+        return true;
     }
 }
