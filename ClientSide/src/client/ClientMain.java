@@ -5,6 +5,7 @@ import java.rmi.registry.Registry;
 import java.util.List;
 import java.util.Scanner;
 import client.candidate.Candidate;
+import client.VoteReturnValue;
 
 public class ClientMain {
     public static void main(String[] args) {
@@ -33,7 +34,8 @@ public class ClientMain {
             System.out.print("Enter your password: ");
             String password = scanner.next();
 
-            int OTP = publicStub.getVoteMaterial(studentNumber, password);
+            VoteReturnValue response = publicStub.getVoteMaterial(studentNumber);
+            int OTP = response.OTP;
 
             if (OTP!= 0) {
 

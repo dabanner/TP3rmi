@@ -5,6 +5,8 @@ import java.util.List;
 import client.ClientMain;
 import client.ElectionService;
 import client.candidate.Candidate;
+import client.StubVotant;
+import client.VoteReturnValue;
 
 public class PublicStub {
     private final ElectionService electionService;
@@ -18,8 +20,11 @@ public class PublicStub {
         return electionService.getCandidates();
     }
 
-    public int getVoteMaterial(int studentNumber, String password) throws RemoteException {
-        return electionService.isAllowedToVote(studentNumber, password);
+    public VoteReturnValue getVoteMaterial(int studentNumber) throws RemoteException {
+        VoteReturnValue response = new VoteReturnValue();
+        response.stubVotant = new StubVotant(electionService);
+        response.OTP = electionService.isAllowedToVote(studentNumber, response.stubVotant.password);
+        return response;
     }
 
     public void getResults() throws RemoteException {
