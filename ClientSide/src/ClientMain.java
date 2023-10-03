@@ -42,8 +42,11 @@ public class ClientMain {
                 Map<Integer, Integer> candidatess = new HashMap<>();
                 candidates.forEach(candidate -> {
                     System.out.println(candidate.toString());
-                    System.out.print("Enter your vote: ");
-                    int candidateRank = scanner.nextInt();
+                    int candidateRank = -1;
+                    do {
+                        System.out.print("Enter your vote: ");
+                        candidateRank = scanner.nextInt();
+                    } while (candidateRank < 0 || candidateRank > 3);
                     candidatess.put(candidate.getId(), candidateRank);
                 });
 
