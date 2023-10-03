@@ -1,11 +1,12 @@
-package client;
+import candidate.CandidatesList;
+import client.ElectionService;
+import client.PublicStub;
+import client.StubVotant;
+import client.VoteReturnValue;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.List;
 import java.util.Scanner;
-import client.candidate.Candidate;
-import client.VoteReturnValue;
 
 public class ClientMain {
     public static void main(String[] args) {
@@ -18,13 +19,8 @@ public class ClientMain {
 
             PublicStub publicStub = new PublicStub(electionService);
             // Query the list of candidates and print their names and pitches
-            List<Candidate> candidates = publicStub.getCandidates();
-            for (Candidate candidate : candidates) {
-                System.out.println("Candidate: " + candidate.getFullName());
-                if (candidate.getPitch() != null) {
-                    System.out.println("Pitch: " + candidate.getPitch());
-                }
-            }
+            CandidatesList candidates = publicStub.getCandidates();
+            System.out.println(candidates.toString());
 
             Scanner scanner = new Scanner(System.in);
 
@@ -34,15 +30,14 @@ public class ClientMain {
             System.out.print("Enter your password: ");
             String password = scanner.next();
 
-            VoteReturnValue response = publicStub.getVoteMaterial(studentNumber);
-            int OTP = response.OTP;
+            VoteReturnValue responce = publicStub.getVoteMaterial(studentNumber);
 
-            if (OTP!= 0) {
+            if (responce.otp.isOTPValid()) {
 
                 StubVotant stubVotant = new StubVotant(electionService);
                 System.out.print("Enter your vote: ");
                 String candidateRank = scanner.next();
-                boolean voteResult = stubVotant.Vote(studentNumber, OTP, candidates);
+                boolean voteResult = stubVotant.Vote(studentNumber, otp, candidates);
 
                 if (voteResult) {
                     System.out.println("Vote successfully cast!");

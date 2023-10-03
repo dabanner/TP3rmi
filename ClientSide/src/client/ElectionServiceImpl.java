@@ -1,14 +1,15 @@
 package client;
 
-import client.candidate.Candidate;
 
-import java.util.List;
+import candidate.CandidatesList;
+import service.AuthenticationToken;
 
 public interface ElectionServiceImpl {
     int isAllowedToVote(int studentNumber, String password);
 
     void getResults();
-    List<Candidate> getCandidates() ;
 
-    boolean vote(int studentNumber, int otp, List<Candidate> candidates);
+    CandidatesList getCandidates();
+
+    boolean vote(int studentNumber, AuthenticationToken otp, CandidatesList candidates);
 }

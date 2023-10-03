@@ -1,20 +1,22 @@
 package candidate;
 
-public class VideoPitchCandidate extends Candidate {
-
-    private String videoPitchLink;
+public class VideoPitchCandidate extends Candidate implements Pitch {
+    private final String videoPitchLink;
 
     public VideoPitchCandidate(String firstName, String lastName, String videoPitchLink) {
         super(firstName, lastName);
         this.videoPitchLink = videoPitchLink;
+
+        System.out.println("[Creation] " + this);
     }
 
-    public String getVideoPitchLink() {
+    @Override
+    public String getPitch() {
         return videoPitchLink;
     }
 
     @Override
     public String toString() {
-        return String.format("%d: %s (Pitch video link :%s)", getId(), getFullName(), getVideoPitchLink());
+        return String.format("User %04d: %s (Pitch video link : %s)", getId(), getFullName(), getPitch());
     }
 }

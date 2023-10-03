@@ -1,9 +1,9 @@
 package client;
 
-import client.candidate.Candidate;
-//import scanner
+import candidate.CandidatesList;
+import service.AuthenticationToken;
+
 import java.util.Scanner;
-import java.util.List;
 
 public class StubVotant {
     private final ElectionService electionService;
@@ -18,9 +18,9 @@ public class StubVotant {
         this.electionService = electionService;
     }
 
-    public boolean Vote(int studentNumber, int OTP, List<Candidate> candidates) {
+    public boolean Vote(int studentNumber, AuthenticationToken otp, CandidatesList candidates) {
         // Call the remote method on the server to fetch candidates
-        return electionService.vote(studentNumber, OTP, candidates);
+        return electionService.vote(studentNumber, otp, candidates);
     }
 
 }

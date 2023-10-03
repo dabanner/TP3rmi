@@ -1,14 +1,18 @@
 package user;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
-public class UsersList extends ArrayList<User> {
+public class UsersList extends HashSet<User> {
     public UsersList() {
         super();
-        for (int i = 1; i <= 100; i++) {
-            // Create a unique password for each user
-            String password = "user" + i;
-            this.add(new User(i, password));
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder("List of users : \n");
+        for (User user : this) {
+            result.append("- ").append(user.toString()).append("\n");
         }
+        return result.toString();
     }
 }

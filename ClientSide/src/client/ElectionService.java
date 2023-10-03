@@ -1,17 +1,16 @@
 package client;
 
-import client.candidate.Candidate;
-
-import java.util.List;
+import candidate.CandidatesList;
+import service.AuthenticationToken;
 
 public class ElectionService implements ElectionServiceImpl {
     @Override
-    public List<Candidate> getCandidates() {
-        return null;
+    public CandidatesList getCandidates() {
+        return new CandidatesList();
     }
 
     @Override
-    public boolean vote(int studentNumber, int otp, List<Candidate> candidates) {
+    public boolean vote(int studentNumber, AuthenticationToken otp, CandidatesList candidates) {
         return false;
     }
 
@@ -22,6 +21,6 @@ public class ElectionService implements ElectionServiceImpl {
 
     @Override
     public void getResults() {
-
+        System.out.println("Results are not available yet.");
     }
 }

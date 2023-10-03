@@ -1,7 +1,8 @@
 package client;
-import client.StubVotant;
+
+import service.AuthenticationToken;
 
 public class VoteReturnValue {
-   public StubVotant stubVotant;
-    public int OTP;
+    public StubVotant stubVotant;
+    public AuthenticationToken otp;
 }

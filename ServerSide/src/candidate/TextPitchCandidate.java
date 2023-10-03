@@ -1,19 +1,22 @@
 package candidate;
 
-public class TextPitchCandidate extends Candidate{
-
-    private String textPitch;
+public class TextPitchCandidate extends Candidate implements Pitch {
+    private final String textPitch;
 
     public TextPitchCandidate(String firstName, String lastName, String textPitch) {
         super(firstName, lastName);
+        this.textPitch = textPitch;
+
+        System.out.println("[Creation] " + this);
     }
 
-    public String getTextPitch() {
+    @Override
+    public String getPitch() {
         return textPitch;
     }
 
     @Override
     public String toString() {
-        return String.format("%d: %s (Text pitch :%s)", getId(), getFullName(), getTextPitch());
+        return String.format("User %04d: %s (Text pitch : %s)", getId(), getFullName(), getPitch());
     }
 }
