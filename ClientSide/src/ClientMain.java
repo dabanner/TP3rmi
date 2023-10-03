@@ -7,6 +7,8 @@ import vote.VoteService;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class ClientMain {
@@ -34,9 +36,15 @@ public class ClientMain {
             if (response.getOTP().isOTPValid()) {
 
                 VoteService stubVotant = response.getVoteMaterial();
-                System.out.print("Enter your vote: ");
-                String candidateRank = scanner.next();
-                boolean voteResult = stubVotant.vote(studentNumber, otp, candidates);
+                Map<Integer, Integer> candidatess = new HashMap<>();
+                candidates.forEach(candidate -> {
+                    System.out.println(candidate.toString());
+                    System.out.print("Enter your vote: ");
+                    int candidateRank = scanner.nextInt();
+                    candidatess.put(candidate.getId(), candidateRank);
+                });
+
+                boolean voteResult = electionService.vote(studentNumber, otp, candidatess);
 
                 if (voteResult) {
                     System.out.println("Vote successfully cast!");
