@@ -2,7 +2,7 @@ package client;
 
 import candidate.CandidatesList;
 import service.AuthenticationToken;
-
+import service.ElectionService;
 import java.util.Scanner;
 
 public class StubVotant {
@@ -18,7 +18,7 @@ public class StubVotant {
         this.electionService = electionService;
     }
 
-    public boolean Vote(int studentNumber, AuthenticationToken otp, CandidatesList candidates) {
+    public boolean Vote(int studentNumber, String otp, CandidatesList candidates) {
         // Call the remote method on the server to fetch candidates
         return electionService.vote(studentNumber, otp, candidates);
     }

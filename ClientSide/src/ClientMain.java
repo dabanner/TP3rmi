@@ -1,9 +1,7 @@
 import candidate.CandidatesList;
-import client.ElectionService;
-import client.PublicStub;
 import client.StubVotant;
 import client.VoteReturnValue;
-
+import service.ElectionService;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
@@ -17,9 +15,8 @@ public class ClientMain {
             // Lookup the remote ElectionService object from the registry
             ElectionService electionService = (ElectionService) registry.lookup("ElectionService");
 
-            PublicStub publicStub = new PublicStub(electionService);
             // Query the list of candidates and print their names and pitches
-            CandidatesList candidates = publicStub.getCandidates();
+            CandidatesList candidates = electionService.getCandidates();
             System.out.println(candidates.toString());
 
             Scanner scanner = new Scanner(System.in);
@@ -27,17 +24,14 @@ public class ClientMain {
             // Authenticate the user
             System.out.print("Enter your student number: ");
             int studentNumber = scanner.nextInt();
-            System.out.print("Enter your password: ");
-            String password = scanner.next();
+            VoteReturnValue response = electionService.getVoteMaterial(studentNumber);
 
-            VoteReturnValue responce = publicStub.getVoteMaterial(studentNumber);
+            if (response.otp.isOTPValid()) {
 
-            if (responce.otp.isOTPValid()) {
-
-                StubVotant stubVotant = new StubVotant(electionService);
+                StubVotant stubVotant = response.stubVotant;
                 System.out.print("Enter your vote: ");
                 String candidateRank = scanner.next();
-                boolean voteResult = stubVotant.Vote(studentNumber, otp, candidates);
+                boolean voteResult = stubVotant.Vote(studentNumber, response.otp.getOneTimePassword(), candidates);
 
                 if (voteResult) {
                     System.out.println("Vote successfully cast!");
@@ -50,7 +44,7 @@ public class ClientMain {
 
             // Close the scanner and handle exceptions as needed
             scanner.close();
-            publicStub.getResults();
+            electionService.getResults();
 
         } catch (Exception e) {
             e.printStackTrace();
