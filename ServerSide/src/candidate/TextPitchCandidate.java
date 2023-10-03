@@ -17,6 +17,6 @@ public class TextPitchCandidate extends Candidate implements Pitch {
 
     @Override
     public String toString() {
-        return String.format("User %04d: %s (Text pitch : %s)", getId(), getFullName(), getPitch());
+        return String.format("Candidate %04d: %s (Text pitch : %s)", getId(), getFullName(), getPitch());
     }
 }

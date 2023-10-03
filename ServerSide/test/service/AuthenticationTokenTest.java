@@ -2,6 +2,7 @@ package service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import vote.AuthenticationToken;
 
 import java.time.LocalDateTime;
 

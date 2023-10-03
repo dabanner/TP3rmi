@@ -17,6 +17,6 @@ public class VideoPitchCandidate extends Candidate implements Pitch {
 
     @Override
     public String toString() {
-        return String.format("User %04d: %s (Pitch video link : %s)", getId(), getFullName(), getPitch());
+        return String.format("Candidate %04d: %s (Pitch video link : %s)", getId(), getFullName(), getPitch());
     }
 }

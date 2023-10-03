@@ -1,7 +1,9 @@
 import candidate.CandidatesList;
-import client.StubVotant;
-import client.VoteReturnValue;
 import service.ElectionService;
+import vote.AuthenticationToken;
+import vote.ResponseVote;
+import vote.VoteMaterial;
+
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
@@ -9,14 +11,14 @@ import java.util.Scanner;
 public class ClientMain {
     public static void main(String[] args) {
         try {
-            // Get the RMI registry running on the server host at port 1099
-            Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+            // Get the RMI registry running on the server host at port 2001
+            Registry registry = LocateRegistry.getRegistry("localhost", 2001);
 
             // Lookup the remote ElectionService object from the registry
             ElectionService electionService = (ElectionService) registry.lookup("ElectionService");
 
             // Query the list of candidates and print their names and pitches
-            CandidatesList candidates = electionService.getCandidates();
+            CandidatesList candidates = electionService.getCandidatesList();
             System.out.println(candidates.toString());
 
             Scanner scanner = new Scanner(System.in);
@@ -24,14 +26,16 @@ public class ClientMain {
             // Authenticate the user
             System.out.print("Enter your student number: ");
             int studentNumber = scanner.nextInt();
-            VoteReturnValue response = electionService.getVoteMaterial(studentNumber);
 
-            if (response.otp.isOTPValid()) {
+            ResponseVote response = electionService.getVoteMaterial(studentNumber);
+            AuthenticationToken otp = response.getOTP();
 
-                StubVotant stubVotant = response.stubVotant;
+            if (response.getOTP().isOTPValid()) {
+
+                VoteMaterial stubVotant = response.getVoteMaterial();
                 System.out.print("Enter your vote: ");
                 String candidateRank = scanner.next();
-                boolean voteResult = stubVotant.Vote(studentNumber, response.otp.getOneTimePassword(), candidates);
+                boolean voteResult = stubVotant.vote(studentNumber, otp, candidates);
 
                 if (voteResult) {
                     System.out.println("Vote successfully cast!");
@@ -44,7 +48,9 @@ public class ClientMain {
 
             // Close the scanner and handle exceptions as needed
             scanner.close();
-            electionService.getResults();
+
+            // Print the election results
+            electionService.getElectionResults();
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,21 +1,16 @@
 package service;
 
+
 import candidate.CandidatesList;
-import candidate.TextPitchCandidate;
-import candidate.VideoPitchCandidate;
+import vote.ResponseVote;
 
-public class ElectionService {
-    public final CandidatesList candidateList = new CandidatesList();
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 
-    public ElectionService() {
-        candidateList.add(new VideoPitchCandidate("John", "Doe", "https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
-        candidateList.add(new TextPitchCandidate("Emmanuel", "Macron", "En Marche !"));
-        candidateList.add(new VideoPitchCandidate("Donald", "Trump", "https://www.youtube.com/watch?v=dQw4w9WgXcQ"));
-        candidateList.add(new TextPitchCandidate("Jean-Luc", "Mélenchon", "La France Insoumise"));
-        candidateList.add(new TextPitchCandidate("Marine", "Le Pen", "Rassemblement National"));
-    }
+public interface ElectionService extends Remote {
+    void getElectionResults() throws RemoteException;
 
-    public CandidatesList getCandidates() {
-        return candidateList;
-    }
+    CandidatesList getCandidatesList() throws RemoteException;
+
+    ResponseVote getVoteMaterial(int studentNumber) throws RemoteException, BadCredentialsException;
 }

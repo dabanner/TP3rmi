@@ -1,4 +1,4 @@
-package service;
+package vote;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -6,7 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 public class AuthenticationToken {
-    private static final Duration VALIDITY_DURATION = Duration.ofMinutes(10);
+    private static final Duration VALIDITY_DURATION = Duration.ofMinutes(5);
     private final String oneTimePassword;
     private final LocalDateTime creationDateTime;
 

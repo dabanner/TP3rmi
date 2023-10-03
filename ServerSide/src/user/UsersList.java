@@ -7,6 +7,15 @@ public class UsersList extends HashSet<User> {
         super();
     }
 
+    public boolean containsUser(int studentNumber) {
+        for (User user : this) {
+            if (user.getStudentNumber() == studentNumber) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder("List of users : \n");
